@@ -1,0 +1,50 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:hasRecordId" 
+        controller="CalendarCmpController" access="global">
+    
+    <ltng:require scripts="{!join(',',
+        $Resource.FullCalendar + '/packages/core/main.js',
+        $Resource.FullCalendar + '/packages/interaction/main.js',
+        $Resource.FullCalendar + '/packages/daygrid/main.js',
+        $Resource.FullCalendar + '/packages/list/main.js',
+        $Resource.FullCalendar + '/packages/timegrid/main.js')}"
+
+        styles="{!join(',',
+        $Resource.FullCalendar + '/packages/core/main.css',
+        $Resource.FullCalendar + '/packages/daygrid/main.css',
+        $Resource.FullCalendar + '/packages/timegrid/main.css',
+        $Resource.FullCalendar + '/packages/list/main.css')}"
+        
+        afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="eventTypes" type="Object[]"/>
+    <aura:attribute name="selectedDate" type="DateTime"/>
+    <aura:attribute name="selectedEventType" type="String"/>
+
+    <!-- Modal prompted after click on date, options to create new Task -->
+    <div aura:id="modal" class="slds-modal">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+
+                <lightning:buttonIcon size="large" iconName="utility:close" variant="bare" onclick="{!c.closeModal}" alternativeText="Close window." class="slds-modal__close" />
+
+                <h2 id="header43" class="slds-text-heading--medium">Create new Task</h2>
+            </div>
+            <div class="slds-modal__content slds-p-around--medium">
+                <div class="slds-form--stacked">
+                    <lightning:radioGroup name="eventTypeRadioGroup"
+                        label="Select Task Type:"
+                        options="{! v.eventTypes }"
+                        value="{! v.selectedEventType }"
+                        type="radio"/>
+                </div>
+            </div>
+            <div class="slds-modal__footer">
+                <lightning:button onclick="{!c.closeModal}" label="Cancelar" variant="neutral"/>
+                <lightning:button onclick="{!c.createEvent}" label="Avançar" variant="brand"/>
+            </div>
+        </div>
+    </div>
+    <!-- Calendar component -->
+    <div aura:id="calendar"></div>
+</aura:component>
