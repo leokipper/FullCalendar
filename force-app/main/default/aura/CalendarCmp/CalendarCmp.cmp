@@ -22,6 +22,7 @@
     <aura:attribute name="selectedEventType" type="String"/>
 
     <!-- Modal prompted after click on date, options to create new Task -->
+    <!-- Using record types on tasks, so this is just to open the correct Page Layot -->
     <div aura:id="modal" class="slds-modal">
         <div class="slds-modal__container">
             <div class="slds-modal__header">

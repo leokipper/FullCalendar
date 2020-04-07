@@ -3,9 +3,6 @@
         var calendarEvent = [];
         var results = [];
         var action = component.get("c.getEvents");
-        action.setParams({ 
-            managerId : component.get("v.recordId")
-        });
         action.setCallback(this,function(response){
             if(response.getState() === "SUCCESS"){
                 results = response.getReturnValue();
@@ -14,13 +11,11 @@
                
                     var item = { 
                         id : element.id,
-                        //resourceId: 'a',
                         start : element.start, 
                         end : element.finish,
                         title : element.title,
                         editable: true,
                         backgroundColor: element.backgroundColor
-                        // backgroundColor: 'blue'
                     };
                     calendarEvent.push(item);
                 };
@@ -57,7 +52,6 @@
                 "entityApiName": "Task",
                'recordTypeId' : selectedEventRecordTypeId,
                'defaultFieldValues': {
-                    'Manager__c': component.get("v.recordId"),
                     'ActivityDate': component.get("v.selectedDate")
                     // 'StartDateTime': component.get("v.selectedDate"),
                     // 'EndDateTime': component.get("v.selectedDate")

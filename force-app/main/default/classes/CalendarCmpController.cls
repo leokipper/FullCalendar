@@ -13,15 +13,14 @@
 public without sharing class CalendarCmpController {
     
     @AuraEnabled
-    public static List<EventWrapper> getEvents(Id managerId) {
+    public static List<EventWrapper> getEvents() {
         List<EventWrapper> lstEventWrapper = new List<EventWrapper>();
         List<Event> lstEvent = new List<Event>();
         List<Task> lstTask = new List<Task>();
         
         lstEvent = [SELECT Id, Description, EndDateTime, ActivityDateTime, Subject,
                 WhatId, What.Name, WhoId, Who.Name, RecordType.Name 
-                FROM Event 
-                WHERE Manager__c =: managerId];
+                FROM Event];
         
         if(!lstEvent.isEmpty()){
             for(Event lEvent : lstEvent){
@@ -50,8 +49,7 @@ public without sharing class CalendarCmpController {
 
         lstTask = [SELECT Id, ActivityDate, Description, RecordType.Name, Subject, Status, WhatId, WhoId,
         What.Name, Who.Name 
-                FROM Task 
-                WHERE Manager__c =: managerId];
+                FROM Task];
 
         if(!lstTask.isEmpty()){
             for(Task lTask : lstTask){
@@ -85,7 +83,6 @@ public without sharing class CalendarCmpController {
     public static List<CustomSelectOptions> getEventOptions(){
 		List<CustomSelectOptions> lstEventOptons = new List<CustomSelectOptions>();
         
-        // for(RecordType rec : [SELECT Id, Name, DeveloperName, Description FROM RecordType WHERE SobjectType = 'Event']) {
         for(RecordType rec : [SELECT Id, Name, DeveloperName, Description FROM RecordType 
                             WHERE SobjectType = 'Task' AND IsActive = true]) {
             CustomSelectOptions lOption = new CustomSelectOptions();

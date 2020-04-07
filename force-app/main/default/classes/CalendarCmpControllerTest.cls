@@ -34,8 +34,7 @@ public with sharing class CalendarCmpControllerTest {
                 ActivityDateTime = System.now(),
                 EndDateTime = System.now(),
                 WhatId = lAccount.Id,
-                WhoId = lContact.Id,
-                Manager__c = lContact.Id);
+                WhoId = lContact.Id);
             lstEvent.add(lEvent);
         }
         if(!lstEvent.isEmpty()){
@@ -51,8 +50,7 @@ public with sharing class CalendarCmpControllerTest {
                 ActivityDate = System.today(),
                 Description = 'This is a test',
                 WhatId = lAccount.Id,
-                WhoId = lContact.Id,
-                Manager__c = lContact.Id);
+                WhoId = lContact.Id);
             lstTask.add(lTask);
         }
         if(!lstTask.isEmpty()){
